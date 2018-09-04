@@ -8,22 +8,28 @@ var APPSECRET="3eabf113d9cbeea3f0e63b87c7fb153e";
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   console.log(req.query)
-    request(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`, function (error, response, abody) {
-        if (!error && response.statusCode == 200) {
-           // 请求成功的处理逻辑
-           console.log(JSON.stringify(req.query))
-          request({
-            url: `https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=${JSON.parse(abody).access_token}`,
-            method: "POST",
-            body: JSON.stringify(req.query)
-        }, function(error, response, oBody) {
-            if (!error && response.statusCode == 200) {
-              console.log(oBody)
-              res.send(oBody);
-            }
-        });
-        }
-      }); 
 });
-
+router.post('/getadvice', function(req, res, next) {
+  console.log(req.body)
+  var addsqlparams = [];
+  addsqlparams.push(req.body.outopenid)
+  addsqlparams.push(req.body.reasons)
+  addsqlparams.push(req.body.advice)
+  addsqlparams.push(req.body.tel)
+  addsqlparams.push(req.body.wechat)
+  addsqlparams.push(req.body.qq)
+  var addsql = 'INSERT INTO advice(outopenid,reasons,advice,tel,wechat,qq) VALUES(?,?,?,?,?,?)';
+  connection.query(addsql, addsqlparams, function (error, oResult) {
+    if (error) {
+      console.log(error);
+      res.send(error);
+      return;
+    }
+    if(oResult.serverStatus&&oResult.serverStatus==2) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  })
+});
 module.exports = router;

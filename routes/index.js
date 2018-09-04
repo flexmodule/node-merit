@@ -25,7 +25,8 @@ router.post('/userinfo', function (req, res, next) {
   addsqlparams.push(req.body.avatarUrl)
   addsqlparams.push(req.body.province)
   addsqlparams.push(req.body.city)
-  var addsql = 'INSERT INTO user(openid,nickname,avatarurl,province,city) VALUES(?,?,?,?,?)';
+  addsqlparams.push(req.body.sex)
+  var addsql = 'INSERT INTO user(openid,nickname,avatarurl,province,city,sex) VALUES(?,?,?,?,?,?)';
   var sql = 'SELECT * FROM user where openid="'+req.body.openid+'"';
   connection.query(sql, function (err, result) {
     if (err) {
@@ -42,7 +43,6 @@ router.post('/userinfo', function (req, res, next) {
           return;
         }
         res.send(oResult);
-        connection.end();
       })
     }
   })
