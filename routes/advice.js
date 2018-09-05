@@ -25,11 +25,7 @@ router.post('/getadvice', function(req, res, next) {
       res.send(error);
       return;
     }
-    if(oResult.serverStatus&&oResult.serverStatus==2) {
-      res.send(true);
-    } else {
-      res.send(false);
-    }
+    res.send(oResult);
   })
 });
 module.exports = router;
