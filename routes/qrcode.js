@@ -12,22 +12,38 @@ router.get('/', function (req, res, next) {
   request(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`, function (error, response, abody) {
     if (!error && response.statusCode == 200) {
       // 请求成功的处理逻辑
-      console.log(JSON.stringify(req.query))
-      request({
-        url: `https://api.weixin.qq.com/wxa/getwxacode?access_token=${JSON.parse(abody).access_token}`,
-        method: "POST",
-        body: JSON.stringify(req.query)
-      }, function (error, response, oBody) {
-        if (!error && response.statusCode == 200) {
-          fs.writeFile(path.resolve(__dirname, '../public/images/mess.png'), oBody, function (err) {
-            if (err) throw err;
-            console.log('It\'s saved!');
-          });
-          // oBody.pipe(fs.createWriteStream('../public/images/a.png'));
-          // console.log(oBody)
-          res.send(oBody);
+      var openid=req.query.path.split("?")[1].split("=")[1];
+      new Promise(function (resolve, reject) {	//由于request pipe是异步下载图片的，需要同步的话需添加一个promise
+        var stream = request({
+              url: `https://api.weixin.qq.com/wxa/getwxacode?access_token=${JSON.parse(abody).access_token}`,
+              method: "POST",
+              body: JSON.stringify(req.query)
+              }).pipe(fs.createWriteStream(path.resolve(__dirname,`../public/images/${openid}.png`)));
+        stream.on('finish', function () {
+          var data= {
+            "meta": {
+              "success": true,
+              "message": "ok"
+            },
+            "data": {
+              imgurl: `http://localhost:3000/images/${openid}.png`
+            }
+          }
+          resolve(data)
+        });
+    }).then(data=>{
+      res.send(data)
+    });  
+    } else {
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": error
         }
-      });
+      })
     }
   });
 });

@@ -21,11 +21,26 @@ router.post('/getadvice', function(req, res, next) {
   var addsql = 'INSERT INTO advice(outopenid,reasons,advice,tel,wechat,qq) VALUES(?,?,?,?,?,?)';
   connection.query(addsql, addsqlparams, function (error, oResult) {
     if (error) {
-      console.log(error);
-      res.send(error);
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": error
+        }
+      })
       return;
     }
-    res.send(oResult);
+    res.json({
+      "meta": {
+        "success": true,
+        "message": "ok"
+      },
+      "data": {
+        "result": oResult
+      }
+    })
   })
 });
 module.exports = router;
