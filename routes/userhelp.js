@@ -12,10 +12,38 @@ router.post('/getnum', function (req, res, next) {
   var sql = 'SELECT * FROM totalnum where openid="' + req.body.openid + '"';
   connection.query(sql, function (err, result) {
     if (err) {
-      res.send(err);
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": err
+        }
+      })
       return;
     }
-    res.send(result)
+    if(result.length!==0) {
+      res.json({
+        "meta": {
+          "success": true,
+          "message": "ok"
+        },
+        "data": {
+          "result": result[0]
+        }
+      })
+    } else if(result.length==0) {
+      res.json({
+        "meta": {
+          "success": true,
+          "message": "ok"
+        },
+        "data": {
+          "result": {"totalNum":0}
+        }
+      })
+    }
   })
 });
 router.post('/gethelp', function (req, res, next) {
@@ -28,22 +56,53 @@ router.post('/gethelp', function (req, res, next) {
   var addsql = 'INSERT INTO helppart(inopenid,totalnum,message,outopenid) VALUES(?,?,?,?)';
   connection.query(addsql, addsqlparams, function (error, oResult) {
     if (error) {
-      res.send(error);
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": error
+        }
+      })
       return;
     }
-    res.send(oResult);
+    res.json({
+      "meta": {
+        "success": true,
+        "message": "ok"
+      },
+      "data": {
+        "result": oResult
+      }
+    })
   })
 });
 router.post('/gethelpdata', function (req, res, next) {
-  console.log(req.body)
+  console.log(req, res)
   var sql = 'SELECT * FROM helppart where inopenid="' + req.body.openid + '"';
   connection.query(sql, function (err, result) {
     if (err) {
-      res.send(err);
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": err
+        }
+      })
       return;
     }
-    console.log(result)
-    res.send(result)
+    res.json({
+      "meta": {
+        "success": true,
+        "message": "ok"
+      },
+      "data": {
+        "result": result
+      }
+    })
   })
 });
 router.post('/updatenum', function (req, res, next) {
@@ -51,31 +110,69 @@ router.post('/updatenum', function (req, res, next) {
   var sql = 'SELECT * FROM totalnum where openid="' + req.body.openid + '"';
   connection.query(sql, function (err, result) {
     if (err) {
-      res.send(err);
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": err
+        }
+      })
       return;
     }
     var addsqlparams = [];
     addsqlparams.push(req.body.totalnum)
-    addsqlparams.push(req.body.man)
-    addsqlparams.push(req.body.woman)
-    if (result.length != 0) {
-      var modSql = `UPDATE totalnum SET totalNum = ?,man = ?,woman = ? WHERE openid = ${req.body.openid}`;
+    if (result.length !== 0) {
+      var modSql = `UPDATE totalnum SET totalNum = ? WHERE openid = '${req.body.openid}'`;
       connection.query(modSql, addsqlparams, function (error, oResult) {
         if (error) {
-          res.send(error);
+          res.json({
+            "meta": {
+              "success": false,
+              "message": "请求失败"
+            },
+            "data": {
+              "error": error
+            }
+          })
           return;
         }
-        res.send(oResult);
+        res.json({
+          "meta": {
+            "success": true,
+            "message": "ok"
+          },
+          "data": {
+            "result": oResult
+          }
+        })
       })
     } else {
       addsqlparams.push(req.body.openid)
-      var addsql = 'INSERT INTO totalnum(openid,totalNum,man,woman) VALUES(?,?,?,?)';
+      var addsql = 'INSERT INTO totalnum(totalNum,openid) VALUES(?,?)';
       connection.query(addsql, addsqlparams, function (error, oResult) {
         if (error) {
-          console.log(error);
+          res.json({
+            "meta": {
+              "success": false,
+              "message": "请求失败"
+            },
+            "data": {
+              "error": error
+            }
+          })
           return;
         }
-        res.send(oResult);
+        res.json({
+          "meta": {
+            "success": true,
+            "message": "ok"
+          },
+          "data": {
+            "result": oResult
+          }
+        })
       })
     }
   })
