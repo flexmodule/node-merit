@@ -79,8 +79,10 @@ router.post('/gethelp', function (req, res, next) {
   })
 });
 router.post('/gethelpdata', function (req, res, next) {
-  console.log(req, res)
-  var sql = 'SELECT * FROM helppart where inopenid="' + req.body.openid + '"';
+  console.log(req.query)
+  var page=(Number(req.query.page)-1)*10;
+  console.log(page)
+  var sql = 'SELECT * FROM helppart where inopenid="' + req.body.openid + '" LIMIT '+page+','+req.query.pagesize+''; 
   connection.query(sql, function (err, result) {
     if (err) {
       res.json({
