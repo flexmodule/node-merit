@@ -1,0 +1,6 @@
+[connection connect] succeed!
+[connection connect] succeed!
+[0mGET / [36m304 [0m25.398 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.775 ms - -[0m
+[0mGET / [36m304 [0m1.484 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.462 ms - -[0m

@@ -1,0 +1,31 @@
+[connection connect] succeed!
+[connection connect] succeed!
+[connection connect] succeed!
+[0mGET / [36m304 [0m33.370 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.535 ms - -[0m
+[0mGET /favicon.ico [33m404 [0m2.988 ms - 903[0m
+[0mGET / [36m304 [0m1.495 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.603 ms - -[0m
+[0mGET / [36m304 [0m2.185 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.506 ms - -[0m
+[connection connect] succeed!
+[connection connect] succeed!
+[connection connect] succeed!
+[0mGET / [36m304 [0m12.306 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.591 ms - -[0m
+[0mGET / [36m304 [0m1.440 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.986 ms - -[0m
+[0mGET / [36m304 [0m0.863 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.479 ms - -[0m
+[0mGET / [36m304 [0m3.302 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.129 ms - -[0m
+[0mGET / [36m304 [0m0.830 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.391 ms - -[0m
+[0mGET / [36m304 [0m0.842 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.405 ms - -[0m
+[0mGET / [36m304 [0m0.884 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.396 ms - -[0m
+[0mGET / [36m304 [0m0.840 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.416 ms - -[0m
+[0mGET / [36m304 [0m1.809 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.631 ms - -[0m

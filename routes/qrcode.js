@@ -27,7 +27,7 @@ router.post('/', function (req, res, next) {
               "message": "ok"
             },
             "data": {
-              imgurl: `http://localhost:3000/images/${openid+timestamp}.png`
+              imgurl: `https://maiyou.xyz/images/${openid+timestamp}.png`
             }
           }
           resolve(data)
@@ -71,7 +71,7 @@ router.post('/qrcodeindex', function (req, res, next) {
               "message": "ok"
             },
             "data": {
-              imgurl: `http://localhost:3000/images/${openid+timestamp}.png`
+              imgurl: `https://maiyou.xyz/images/${openid+timestamp}.png`
             }
           }
           resolve(data)

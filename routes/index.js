@@ -6,9 +6,24 @@ var APPID = "wx7a4c86d3afffdaf3";
 var APPSECRET = "3eabf113d9cbeea3f0e63b87c7fb153e";
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'Express'
-  });
+  var sql = 'SELECT * FROM user';
+  connection.query(sql, function (err, result) {
+    if (err) {
+      res.json({
+        "meta": {
+          "success": false,
+          "message": "请求失败"
+        },
+        "data": {
+          "error": err
+        }
+      })
+      return;
+    }
+    res.render('index', {
+      title: result.length
+    });
+  })
 });
 router.post('/getopenid', function (req, res, next) {
   request(`https://api.weixin.qq.com/sns/jscode2session?appid=${APPID}&secret=${APPSECRET}&js_code=${req.body.code}&grant_type=authorization_code`, function (error, response, abody) {
