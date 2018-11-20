@@ -1,12 +1,13 @@
-var express = require('express');
+﻿var express = require('express');
 var router = express.Router();
 var connection = require("../database.js");
 var request = require("request");
 var APPID = "wx7a4c86d3afffdaf3";
-var APPSECRET = "3eabf113d9cbeea3f0e63b87c7fb153e";
+var APPSECRET = "6552bb77adb61614e1b54176e464c343";
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  var sql = 'SELECT * FROM user';
+  
+var sql = 'SELECT * FROM user';
   connection.query(sql, function (err, result) {
     if (err) {
       res.json({
@@ -20,14 +21,15 @@ router.get('/', function (req, res, next) {
       })
       return;
     }
-    res.render('index', {
-      title: result.length
-    });
-  })
+res.render('index', {
+    title: result.length
+  });
+})
 });
 router.post('/getopenid', function (req, res, next) {
   request(`https://api.weixin.qq.com/sns/jscode2session?appid=${APPID}&secret=${APPSECRET}&js_code=${req.body.code}&grant_type=authorization_code`, function (error, response, abody) {
     if (!error && response.statusCode == 200) {
+      console.log(abody)
       // 请求成功的处理逻辑
       res.json({
         "meta": {

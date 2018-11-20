@@ -3,7 +3,7 @@ var router = express.Router();
 var connection =require("../database.js");
 var request = require("request");
 var APPID="wx7a4c86d3afffdaf3";
-var APPSECRET="3eabf113d9cbeea3f0e63b87c7fb153e";
+var APPSECRET="6552bb77adb61614e1b54176e464c343";
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

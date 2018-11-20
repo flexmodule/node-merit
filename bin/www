@@ -2,26 +2,27 @@
 
 /**
  * Module dependencies.
- */
+ */var fs=require("fs"); 
 
 var app = require('../app');
 var debug = require('debug')('node-merit:server');
-var http = require('http');
+var https = require('http');
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
- */
-// var options={
-//   key: fs.readFileSync("./2_maiyou.xyz.key"),
-//   cert: fs.readFileSync("./1_maiyou.xyz_bundle.crt")
-// }
-var server = http.createServer(app);
+ */var options={
+key: fs.readFileSync("./2_maiyou.xyz.key"),
+cert: fs.readFileSync("./1_maiyou.xyz_bundle.crt")
+};
+
+var server = https.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -1,9 +1,9 @@
-var express = require('express');
+﻿var express = require('express');
 var router = express.Router();
 var connection = require("../database.js");
 var request = require("request");
 var APPID = "wx7a4c86d3afffdaf3";
-var APPSECRET = "3eabf113d9cbeea3f0e63b87c7fb153e";
+var APPSECRET = "6552bb77adb61614e1b54176e464c343";
 var fs = require('fs');
 var path = require('path');
 /* GET users listing. */
@@ -27,7 +27,7 @@ router.post('/', function (req, res, next) {
               "message": "ok"
             },
             "data": {
-              imgurl: `https://maiyou.xyz/images/${openid+timestamp}.png`
+              imgurl: `http://localhost:3000/images/${openid+timestamp}.png`
             }
           }
           resolve(data)
